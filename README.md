@@ -16,6 +16,18 @@
 * `AJAX`
 * `Local Storage Browser Chrome`
 
+## Features
+* `User can search data covid from specific country`
+* `User can manage history`
+
+## Screenshot
+### Home
+![hompage](https://user-images.githubusercontent.com/38114768/85107822-c7e7ee80-b238-11ea-84c4-36270fa85a19.png)
+
+### History
+![history](https://user-images.githubusercontent.com/38114768/85107851-d209ed00-b238-11ea-9bc8-788edadaef5d.png)
+
+
 ## Author
 Claytten
 
