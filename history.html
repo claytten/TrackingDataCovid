@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Meta -->
+    <meta name="author" content="Claytten">
+
+    <link rel="icon" href="./assets/img/favicon.ico" />
+    <title>Corona Virus Tracker</title>
+
+    <!-- vendor css -->
+    <link href="./lib/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="./lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+    <link href="./lib/typicons.font/typicons.css" rel="stylesheet">
+    <link href="./lib/flag-icon-css/css/flag-icon.min.css" rel="stylesheet" type="text/css">
+
+    <!-- style CSS -->
+    <link rel="stylesheet" href="./assets/css/style.css">
+
+  </head>
+  <body class="az-body">
+    <div class="az-header az-header-mail">
+        <div class="container" style="justify-content: center;">
+          <div class="az-header-left">
+            <a href="index.html" class="az-logo">
+              <img src="./assets/img/covid-19.png" alt="covid-19" height="50" width="220">
+            </a>
+            <a href="" id="azNavShow" class="az-header-menu-icon d-lg-none"><span></span></a>
+            <a href="" id="azContentBodyHide" class="az-header-arrow d-md-none"><i class="icon ion-md-arrow-back"></i></a>
+          </div><!-- az-header-left -->
+        </div><!-- container -->
+      </div><!-- az-header -->
+  
+      <div class="az-navbar">
+        <div class="container" style="justify-content: center;">
+          <div><a href="index.html" class="az-logo">Claytten</a></div>
+          <ul class="nav">
+            <li class="nav-item">
+              <a href="./index.html" class="nav-link"><i class="typcn typcn-home"></i>Home</a>
+            </li><!-- nav-item -->
+            <li class="nav-item active">
+              <a href="./history.html" class="nav-link"><i class="typcn typcn-time"></i>History</a>
+            </li><!-- nav-item -->
+          </ul><!-- nav -->
+        </div><!-- container -->
+      </div><!-- az-navbar -->
+
+    <div class="az-content az-content-mail">
+      <div class="container">
+        <div class="az-content-body az-content-body-mail">
+          <div style="padding-left:20px; display:flex">
+            <h2>History</h2>
+          </div>
+
+          <div class="az-mail-list" id="history-list">
+            
+            
+          </div><!-- az-mail-list -->
+
+          <div class="mg-lg-b-30"></div>
+
+        </div><!-- az-content-body -->
+      </div><!-- container -->
+    </div><!-- az-content -->
+
+    <div class="az-footer">
+      <div class="container">
+        <span>&copy; 2019 Claytten</span>
+        <span>Designed by: Claytten</span>
+      </div><!-- container -->
+    </div><!-- az-footer -->
+
+    <script src="./lib/jquery/jquery.min.js"></script>
+    <script src="./lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="./lib/ionicons/ionicons.js"></script>
+
+    <script>
+      'use strict'
+      'use strict'
+      let getLengthLocalStorage = localStorage['totalCounting'];
+
+      $("#history-list").empty();
+      if(getLengthLocalStorage != 0) {
+        for(let i =0; i<getLengthLocalStorage; i++ ) {
+          for(let j=0; j<localStorage[i].length; j++){
+            if(localStorage[j] !== undefined) {
+              let getArray = JSON.parse(localStorage[j]);
+              $("#history-list").append(`
+                  <div class="az-mail-item unread" id="history-id-`+j+`">
+                    <div class="az-mail-checkbox">
+                      <label class="ckbox">
+                          <button class="btn btn-light bg-danger" style="padding: 9px 13px" onclick="deleteHistory(`+j+`)"><i class="typcn typcn-trash" style="color: white; font-size: 20px"></i></button>
+                      </label>
+                    </div><!-- az-mail-checkbox -->
+                    <div class="az-mail-body">
+                      <div class="az-mail-from">`+getArray.date+`</div>
+                      <div class="az-mail-subject">
+                        <strong>`+ getArray.name+`</strong><br>
+                        <span>Total Data `+getArray.total+`, Infected `+getArray.infected+`, Recovered `+getArray.recovered+`, Deaths `+getArray.deaths+`</span>
+                      </div>
+                    </div><!-- az-mail-body -->
+                    <div class="az-mail-attachment"></div>
+                    <div class="az-mail-date"></div>
+                  </div><!-- az-mail-item -->
+                `);
+            }
+          }
+        }
+      } else {
+        for(let j=0; j<localStorage[0].length; j++){
+          if(localStorage[j] !== undefined) {
+            let getArray = JSON.parse(localStorage[j]);
+            console.log(getArray.flag);
+            $("#history-list").append(`
+                <div class="az-mail-item unread" id="history-id-`+j+`">
+                  <div class="az-mail-checkbox">
+                    <label class="ckbox">
+                        <button class="btn btn-light bg-danger" style="padding: 9px 13px" onclick="deleteHistory(`+j+`)"><i class="typcn typcn-trash" style="color: white; font-size: 20px"></i></button>
+                    </label>
+                  </div><!-- az-mail-checkbox -->
+                  <div class="az-mail-body">
+                    <div class="az-mail-from">`+getArray.date+`</div>
+                    <div class="az-mail-subject">
+                      <strong>`+ getArray.name+`</strong><br>
+                      <span>Total Data `+getArray.total+`, Infected `+getArray.infected+`, Recovered `+getArray.recovered+`, Deaths `+getArray.deaths+`</span>
+                    </div>
+                  </div><!-- az-mail-body -->
+                  <div class="az-mail-attachment"></div>
+                  <div class="az-mail-date"></div>
+                </div><!-- az-mail-item -->
+              `);
+          }
+        }
+      }
+      
+
+      function deleteHistory(id) {
+        $("#history-id-"+id).remove();
+        localStorage.removeItem(id);
+        localStorage['totalCounting'] -= 1;
+      }
+    </script>
+  </body>
+</html>

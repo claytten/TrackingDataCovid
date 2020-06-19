@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Meta -->
+    <meta name="author" content="Claytten">
+
+    <link rel="icon" href="./assets/img/favicon.ico" />
+    <title>Corona Virus Tracker</title>
+
+    <!-- vendor css -->
+    <link href="./lib/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="./lib/ionicons/css/ionicons.min.css" rel="stylesheet" type="text/css">
+    <link href="./lib/typicons.font/typicons.css" rel="stylesheet" type="text/css">
+    <link href="./lib/flag-icon-css/css/flag-icon.min.css" rel="stylesheet" type="text/css">
+    <link href="./lib/select2/css/select2.min.css" rel="stylesheet" type="text/css">
+    <link href="./lib/datatable/css/datatable.min.css" rel="stylesheet" type="text/css">
+    <link href="./lib/morris.js/morris.css" rel="stylesheet">
+
+    <!-- style CSS -->
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <style>
+      .dataTables_wrapper .dataTables_paginate .paginate_button {
+        padding-left: 0.52rem;
+      }
+      tbody tr td {
+        text-align: center !important;
+      }
+    </style>
+
+  </head>
+  <body class="az-body">
+
+    <div class="az-header az-header-mail">
+      <div class="container" style="justify-content: center;">
+        <div class="az-header-left">
+          <a href="index.html" class="az-logo">
+            <img src="./assets/img/covid-19.png" alt="covid-19" height="50" width="220">
+          </a>
+          <a href="" id="azNavShow" class="az-header-menu-icon d-lg-none"><span></span></a>
+          <a href="" id="azContentBodyHide" class="az-header-arrow d-md-none"><i class="icon ion-md-arrow-back"></i></a>
+        </div><!-- az-header-left -->
+      </div><!-- container -->
+    </div><!-- az-header -->
+
+    <div class="az-navbar">
+      <div class="container" style="justify-content: center;">
+        <div><a href="index.html" class="az-logo">Claytten</a></div>
+        <ul class="nav">
+          <li class="nav-item active">
+            <a href="./index.html" class="nav-link"><i class="typcn typcn-home"></i>Home</a>
+          </li><!-- nav-item -->
+          <li class="nav-item">
+            <a href="./history.html" class="nav-link"><i class="typcn typcn-time"></i>History</a>
+          </li><!-- nav-item -->
+        </ul><!-- nav -->
+      </div><!-- container -->
+    </div><!-- az-navbar -->
+
+    <div class="az-content az-content-dashboard">
+      <div class="container">
+        <div class="az-content-body">
+          <div class="az-dashboard-one-title">
+            <div>
+              <h2 class="az-dashboard-title">Hi, welcome back!</h2>
+              <p class="az-dashboard-text">Tracking data COVID-19</p>
+            </div>
+            <div class="az-content-header-right">
+              <div class="media">
+                <div class="media-body" id="today-date">
+                  <label>Today</label>
+                </div><!-- media-body -->
+              </div><!-- media -->
+              <div class="media" style="width: 300px">
+                <div class="media-body">
+                  <label>Countries</label>
+                  <h6>
+                    <select class="form-control countries" id="getCountry">
+                    </select>
+                  </h6>
+                </div><!-- media-body -->
+              </div><!-- media -->
+            </div>
+          </div><!-- az-dashboard-one-title -->
+
+          <div id="detailCountry"></div>
+
+          <div class="row row-sm mg-b-20 mg-lg-b-0">
+            <div class="col-lg-5 col-xl-4">
+              <div class="card card-dashboard-pageviews">
+                <div class="card-header">
+                  <h6 class="card-title">Data COVID-19 (GLOBAL)</h6>
+                  <p class="card-text">This report is based on all countries</p>
+                </div><!-- card-header -->
+                <div class="card-body" id="global-data">
+                  
+                </div><!-- card-body -->
+              </div><!-- card -->
+            </div><!-- col-lg-3 -->
+            <div class="col-lg-7 col-xl-8 mg-t-20 mg-lg-t-0">
+              <div class="card card-table-one">
+                <h6 class="card-title">Top 5 country has infected COVID-19</h6>
+                <div class="table-responsive">
+                  <table class="table" id="get-all-country">
+                    <thead>
+                      <tr>
+                        <th class="wd-5p" style="text-align: center;">Flag</th>
+                        <th class="wd-45p" style="text-align: center;">Country</th>
+                        <th>Infected</th>
+                        <th>Recovered</th>
+                        <th>Deaths</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
+                </div><!-- table-responsive -->
+              </div><!-- card -->
+            </div><!-- col-lg -->
+          </div><!-- row -->
+        </div><!-- az-content-body -->
+      </div>
+    </div><!-- az-content -->
+
+    <div class="az-footer">
+      <div class="container">
+        <span>&copy; 2019 Claytten</span>
+        <span>Designed by: Claytten</span>
+      </div><!-- container -->
+    </div><!-- az-footer -->
+
+    <script src="./lib/jquery/jquery.min.js" type="text/javascript"></script>
+    <script src="./lib/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+    <script src="./lib/ionicons/ionicons.js" type="text/javascript" ></script>
+    <script src="./lib/select2/js/select2.min.js" type="text/javascript"></script>
+    <script src="./lib/moment/js/moment.min.js" type="text/javascript"></script>
+    <script src="./lib/datatable//js/datatable.min.js"></script>
+    <script src="./lib/raphael/raphael.min.js"></script>
+    <script src="./lib/morris.js/morris.min.js"></script>
+
+    <script>
+      $(function(){
+        'use strict'
+        // Global Api
+        let mainApi = "https://covid19.mathdro.id/api";
+        let countriesApi = "https://covid19.mathdro.id/api/countries";
+
+        // Global Variable
+        let lastUpdate = "";
+        let setFlagIso2 = "";
+        let countingKeyLocalStorage = 0;
+        let getDt = new Date();
+
+
+        $("#today-date").append(`<h6>`+getDt.toDateString()+`</h6>`);
+        let getAllCountry = $("#get-all-country").DataTable({
+          order: [2,'DESC'],
+          pageLength: 5,
+          aLengthMenu:[5,10,15,25,50],
+          responsive: true
+        });
+
+        $.ajax({
+            url: mainApi,
+            type : "GET",
+            dataType : "json",
+            success:function(data)
+            {
+              let getLastUpdated = moment(data.lastUpdate).format('LLLL');
+              lastUpdate = getLastUpdated.toString();
+              $("#global-data").empty().append(`
+                <div class="az-list-item">
+                  <div>
+                    <h6>Infected</h6>
+                    <span>`+ getLastUpdated.toString() +`</span>
+                  </div>
+                  <div>
+                    <h6>`+ data.confirmed.value +` People</h6>
+                  </div>
+                </div>
+                <div class="az-list-item">
+                  <div>
+                    <h6>Recovered</h6>
+                    <span>`+ getLastUpdated.toString() +`</span>
+                  </div>
+                  <div>
+                    <h6>`+ data.recovered.value +` People</h6>
+                  </div>
+                </div>
+                <div class="az-list-item">
+                  <div>
+                    <h6>Deaths</h6>
+                    <span>`+ getLastUpdated.toString() +`</span>
+                  </div>
+                  <div>
+                    <h6>`+ data.deaths.value +` People</h6>
+                  </div>
+                </div>
+              `);
+            }
+        });
+        $.ajax({
+            url: countriesApi,
+            type : "GET",
+            dataType : "json",
+            beforeSend: () => {
+              $("#top-5-country").empty();
+            },
+            success:function(data)
+            {
+              $(".countries").append(`
+                <option value=""> Choose One </option>
+              `);
+              data.countries.filter( value => {
+                if(value.iso3 !== undefined && value.iso3 !== "GMB" && value.iso3 !== "CZE") {
+                  return value;
+                }
+              })
+              .map( (value,index) => {
+                  $(".countries").append(`
+                    <option value="`+ value.iso3 +`">`+ value.name +`</option>
+                  `);
+                  $.ajax({
+                      url: countriesApi + "/" + value.iso3,
+                      type : "GET",
+                      dataType : "json",
+                      success:function(data)
+                      {
+                        data['flag'] = value.iso2.toLowerCase();
+                        data['name'] = value.name;
+                        getAllCountry.row.add([
+                          `<i class="flag-icon flag-icon-`+data.flag+` flag-icon-squared"></i>`,
+                          `<strong>`+data.name+`</strong>`,
+                          `<strong>`+data.confirmed.value+`</strong>`,
+                          `<strong>`+data.recovered.value+`</strong>`,
+                          `<strong>`+data.deaths.value+`</strong>`
+                        ]).draw();
+                      }
+                  });
+              });
+            },
+            complete: () => {
+              $('.countries').select2({
+                placeholder: 'Choose one'
+              });
+           }
+        });
+
+        $(".countries").on("select2:select", function (e) { 
+          let select_val = $(e.currentTarget).val();
+          let getTextSelect = $(".countries option:selected").text();
+          
+
+          $.ajax({
+              url: countriesApi + "/" + select_val,
+              type : "GET",
+              dataType : "json",
+              success:function(data)
+              {
+                let result = 0;
+                result = (data.confirmed.value + data.recovered.value + data.deaths.value);
+                let getPersConfirmed = ((data.confirmed.value/result)*100).toFixed(0);
+                let getPersRecovered = ((data.recovered.value/result)*100).toFixed(0);
+                let getPersDeaths = ((data.deaths.value/result)*100).toFixed(0);
+                setLocalStorage(getDt.toDateString(),getTextSelect,result,data.confirmed.value, data.recovered.value, data.deaths.value)
+                countingKeyLocalStorage  += 1;
+
+                $("#detailCountry").empty().append(`
+                  <div class="row row-sm mg-b-20">
+                    <div class="col-lg-12 mg-t-20 mg-lg-t-0">
+                        <div class="card card-dashboard-four">
+                          <div class="card-header">
+                              <h6 class="card-title" >Last Update Data COVID-19 on Region `+ getTextSelect +` and Total Data `+result+`</h6>
+                          </div><!-- card-header -->
+                          <div class="card-body row">
+                              <div class="col-md-6 d-flex align-items-center">
+                                <div class="chart">
+                                  <div id="morrisBar1" class="ht-200 ht-lg-250 wd-100p"></div>
+                                </div>
+                              </div><!-- col -->
+                              <div class="col-md-6 col-lg-5 mg-lg-l-auto mg-t-20 mg-md-t-0">
+                                <div class="az-traffic-detail-item">
+                                    <div>
+                                      <span>Infected</span>
+                                      <span>`+ data.confirmed.value +` <span>(`+getPersConfirmed+`%)</span></span>
+                                    </div>
+                                    <div class="progress">
+                                      <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="`+getPersConfirmed+`" aria-valuemin="0" aria-valuemax="100" style="width: `+getPersConfirmed+`%"></div>
+                                    </div><!-- progress -->
+                                </div>
+                                <div class="az-traffic-detail-item">
+                                    <div>
+                                      <span>Recovered</span>
+                                      <span>`+ data.recovered.value +` <span>(`+getPersRecovered+`%)</span></span>
+                                    </div>
+                                    <div class="progress">
+                                      <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="`+getPersRecovered+`" aria-valuemin="0" aria-valuemax="100" style="width: `+getPersRecovered+`%"></div>
+                                    </div><!-- progress -->
+                                </div>
+                                <div class="az-traffic-detail-item">
+                                    <div>
+                                      <span>Deaths</span>
+                                      <span>`+ data.deaths.value +` <span>(`+getPersDeaths+`%)</span></span>
+                                    </div>
+                                    <div class="progress">
+                                      <div class="progress-bar bg-danger progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="`+getPersDeaths+`" aria-valuemin="0" aria-valuemax="100" style="width: `+getPersDeaths+`%"></div>
+                                    </div><!-- progress -->
+                                </div>
+                              </div><!-- col -->
+                          </div><!-- card-body -->
+                        </div><!-- card-dashboard-four -->
+                    </div><!-- col -->
+                  </div><!-- row -->
+                `);
+                getStateChart(data.confirmed.value,data.recovered.value,data.deaths.value, lastUpdate);
+              }
+          });
+        });
+
+        function setLocalStorage(dt,name,total,infected,recovered,death) {
+          
+          let toArrayLocalStorage = {
+            "date"      : dt,
+            "name"      : name,
+            "total"     : total,
+            "infected"  : infected,
+            "recovered" : recovered,
+            "deaths"    : death
+          };
+          localStorage['totalCounting'] = countingKeyLocalStorage;
+          localStorage[countingKeyLocalStorage] = JSON.stringify(toArrayLocalStorage);
+        }
+
+        function getStateChart(confirmed, recovered, deaths, lastUpdated) {
+          var morrisData = [
+            { y: lastUpdated, a: confirmed, b: recovered, c: deaths },
+          ];
+
+          new Morris.Bar({
+            element: 'morrisBar1',
+            data: morrisData,
+            xkey: 'y',
+            ykeys: ['a', 'b', 'c'],
+            labels: ['Infected', 'Recovered', 'Deaths'],
+            barColors: ['#ffc107', '#3bb001','#dc3545'],
+            barSizeRatio: 0.55,
+            gridTextSize: 11,
+            gridTextColor: '#494c57',
+            gridTextWeight: 'bold',
+            gridLineColor: '#999',
+            gridStrokeWidth: 0.25,
+            hideHover: 'auto',
+            resize: true,
+            padding: 5
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
